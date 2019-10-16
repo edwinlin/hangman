@@ -47,6 +47,8 @@ server.listen(PORT, () => {
 });
 
 io.on('connection', function (socket) {
+  console.log("SOCKET ID", socket.id)
+
   socket.on("clickedLetter", function (letter) {
     console.log("recived", letter);
     io.sockets.emit("clickedLetter", letter);
