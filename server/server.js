@@ -46,11 +46,11 @@ server.listen(PORT, () => {
   console.log('Server listening on ', PORT);
 });
 
-io.on('connection', function (socket) {
-  console.log("SOCKET ID", socket.id)
+// io.on('connection', function (socket) {
+//   console.log("SOCKET ID", socket.id)
 
-  socket.on("clickedLetter", function (letter) {
-    console.log("recived", letter);
-    io.sockets.emit("clickedLetter", letter);
-  });
-})
+//   socket.on("clickedLetter", function (letter) {
+//     console.log("recived", letter);
+//     io.sockets.emit("clickedLetter", letter);
+//   });
+// })
