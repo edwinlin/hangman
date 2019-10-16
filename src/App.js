@@ -82,7 +82,7 @@ class App extends Component{
     }
       this.gameEnded = this.gameEnded.bind(this);
       this.letterClicked = this.letterClicked.bind(this);
-      this.socket = io.connect("https://hangman-server-test1.herokuapp.com/games");
+      this.socket = io.connect("https://hangman-server-test1.herokuapp.com");
     }
 
   componentDidMount() {

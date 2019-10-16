@@ -1,7 +1,5 @@
 //https://socket.io/docs/
-const path = require('path');
-const express = require('express')
-const app = express();
+const app = require('express')();
 const server = require('http').Server(app);
 let io = require('socket.io')(server)
 
@@ -9,7 +7,7 @@ const fetch = require('node-fetch');
 
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const PORT = process.env.PORT || 80;
+const PORT = 4000;
 
 const authController = require('./authController.js');
 const cookieController = require('./cookieController.js');
@@ -32,36 +30,22 @@ app.get('/api/auth/github/callback',
   authController.redirectAfterLogin
 );
 
-// For Build
-// For adding a new remote to heroku : heroku git:remote -a hangmanx-cs
-// push the branch adam-rajeeb/heroku-deployment to heroku remote's master branch : git push heroku adam-rajeeb/heroku-deployment:master
-app.use('/dist', express.static(path.resolve(__dirname, '../dist')));
-app.use('/games', (req, res, next) => {
-  res.sendFile(path.resolve(__dirname, '../public/index.html'));
-});
-
 app.get('/user/profile', cookieController.getInfofromCookie);
 
 server.listen(PORT, () => {
   console.log('Server listening on ', PORT);
 });
 
-// io.on('connection', function (socket) {
-
-//   socket.on("clickedLetter", function (letter) {
-//     console.log("SOCKET ID", socket.id)
-
-//     console.log("recived", letter);
-//     io.sockets.emit("clickedLetter", letter);
-//   });
-// })
-
-io.of('/games').on('connection', function (socket) {
-
+io.on('connection', function (socket) {
+  console.log("SOCKET ID", socket.id)
   socket.on("clickedLetter", function (letter) {
-    console.log("SOCKET ID", socket.id)
-
     console.log("recived", letter);
     io.sockets.emit("clickedLetter", letter);
   });
 })
+
+// io.of("/games").on("connection", socket => {
+//   //Welcome new joiners!
+//   socket.emit("welcome", "This is the Gaming Channel!");
+// })
+
