@@ -36,7 +36,7 @@ app.get('/api/auth/github/callback',
 // For adding a new remote to heroku : heroku git:remote -a hangmanx-cs
 // push the branch adam-rajeeb/heroku-deployment to heroku remote's master branch : git push heroku adam-rajeeb/heroku-deployment:master
 app.use('/dist', express.static(path.resolve(__dirname, '../dist')));
-app.use('/', (req, res, next) => {
+app.use('/games', (req, res, next) => {
   res.sendFile(path.resolve(__dirname, '../public/index.html'));
 });
 
@@ -56,7 +56,12 @@ server.listen(PORT, () => {
 //   });
 // })
 
-io.of('/games')
-.on('connection', (socket) => {
-  socket.emit('welcome', "hello and welcome to game area")
+io.of('/games').on('connection', function (socket) {
+
+  socket.on("clickedLetter", function (letter) {
+    console.log("SOCKET ID", socket.id)
+
+    console.log("recived", letter);
+    io.sockets.emit("clickedLetter", letter);
+  });
 })
