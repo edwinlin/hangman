@@ -46,12 +46,20 @@ server.listen(PORT, () => {
   console.log('Server listening on ', PORT);
 });
 
-io.on('connection', function (socket) {
+// io.on('connection', function (socket) {
 
+//   socket.on("clickedLetter", function (letter) {
+//     console.log("SOCKET ID", socket.id)
+
+//     console.log("recived", letter);
+//     io.sockets.emit("clickedLetter", letter);
+//   });
+// })
+
+io.of('/games')
+.on('connection', (socket) => {
   socket.on("clickedLetter", function (letter) {
-    console.log("SOCKET ID", socket.id)
 
-    console.log("recived", letter);
     io.sockets.emit("clickedLetter", letter);
   });
 })
