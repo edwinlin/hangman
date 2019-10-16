@@ -58,8 +58,5 @@ server.listen(PORT, () => {
 
 io.of('/games')
 .on('connection', (socket) => {
-  socket.on("clickedLetter", function (letter) {
-
-    io.sockets.emit("clickedLetter", letter);
-  });
+  socket.emit('welcome', "hello and welcome to game area")
 })
